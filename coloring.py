@@ -42,5 +42,58 @@ def is_proper_edge(graph):
           
   return True
 
-def greedy(graph, order):
-  return True   
+
+
+def smallest(graph, vert, color, num = 1):
+  numbers = [];
+  print(color)
+  print(vert)
+  if vert in color:
+    print("vert in color?")
+    numbers.append(color[n])
+  for n in graph[vert]:
+    if n in color:
+      print("n in color?")
+      numbers.append(color[n])
+  loop = True
+  while loop:
+    if num in numbers:
+      num += 1
+    else:
+      loop = False
+      return num
+
+def greedy(graph, order, color = {}, num = 1):
+  if color == {}:
+    color = {order[0] : 1}
+    num = 2
+
+  for o in order:
+    if o not in color:
+      num = smallest(graph, o, color);
+      color[o] = num
+      num += 1
+    for n in graph:
+      if n == o:
+        for x in graph[n]:
+          if x not in color:
+            num = smallest(graph, x, color)
+            color[x] = num
+           
+
+  return sorted(color.items())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
