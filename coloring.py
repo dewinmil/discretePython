@@ -5,27 +5,73 @@ def is_proper(graph, color):
         return False
   return True
 
-
+  
 
 def three_color(graph):
   allTrees = []
-  currentTree =[]
-  num = 1
-  count = 0
-  currentPos = 0
-
-  for n in graph:
-    if maxCount == 0:
-      count += 1
-    n[1] = num
-    currentTree.append(n)
-
-  allTrees.append(currentTree)
   currentTree = []
-  maxCount = count
+  setTree = []
+  for n in graph:
+    currentTree.append({n : 1})
 
-  return allTrees
+  for s in currentTree:
+    r = s.copy()
+    setTree.append(r)
+  allTrees.append(setTree);
+  breakBool = False
+  loop = True
+  for num in range(0, len(graph) * len(graph) * len(graph)):
+    breakBool = False
+    setTree =[]
+    for n in currentTree:
+      if breakBool == True:
+        break
+      for x in n:
+        if n[x] <3:
+          n[x] += 1
+          for s in currentTree:
+            r = s.copy()
+            setTree.append(r)
+          allTrees.append(setTree);
+          breakBool = True
+          break
+        else:
+          n[x] = 1
   
+  return allTrees
+
+
+#def three_color(graph):
+#  main = []
+#  for key in graph:
+#    main.append(key)
+#  temp = []
+#  output = []
+#  for ke in main:
+#    output = [] 
+#    for i in range(1, 4):
+#      if temp == []:
+#        output.append({ke:i})
+#      else:
+#        for item in temp:
+#          dict = {ke : i}
+#          dict.update(item)
+#          output.append(dict)
+#    temp = output
+#  return output
+
+
+
+def is_three_color(graph):
+  myList = three_color(graph)
+  for n in myList:
+    boolean = is_proper(graph, n)
+    if boolean == True:
+      return True
+  return False
+
+
+
 
 
 def is_proper_edge(graph):
@@ -49,11 +95,9 @@ def smallest(graph, vert, color, num = 1):
   print(color)
   print(vert)
   if vert in color:
-    print("vert in color?")
     numbers.append(color[n])
   for n in graph[vert]:
     if n in color:
-      print("n in color?")
       numbers.append(color[n])
   loop = True
   while loop:
