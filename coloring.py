@@ -16,7 +16,7 @@ def three_color(graph):
 
   for n in graph:
     if maxCount == 0:
-      count++
+      count += 1
     n[1] = num
     currentTree.append(n)
 
@@ -29,8 +29,18 @@ def three_color(graph):
 
 
 def is_proper_edge(graph):
-  
-
+  buff = []
+  for n in graph:
+    buff = []
+    for x in graph[n]:
+      for c in x:
+        if type(c) is int:
+          if c not in buff:
+            buff.append(c)
+          else:
+            return False
+          
+  return True
 
 def greedy(graph, order):
-   
+  return True   
