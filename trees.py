@@ -59,6 +59,7 @@ def edge_get(graph, node='A', visited=[], minimum = 999999999):
             if [n, x[0]] and [x[0], n] not in visited:
               visited.append([n,x[0]])
     prevMin = minimum
+
   returnval = visited
   visited = []
   return returnval
