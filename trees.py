@@ -128,18 +128,50 @@ def min_kruskal(graph, node='A', visited=[], minimum = 999999999):
       for p in connectedPoint:
         if p not in connectedTreePoint:
           loop = True
-       
-    
-    
+      
   return connectedTree   
        
     
 
+def min_prim(graph, node='A', visited=[], minimum = 999999999):
+  visited = edge_get(graph, node, visited, minimum)
+  connectedPoint =[]
+  connectedTree = []
+  
+  connectedPoint.append(node)
+  loop = True
+  
+  while loop:
+    for n in visited:
+      if n[0] in connectedPoint or n[1] in connectedPoint:
+        if n[0] in connectedPoint and n[0] in connectedPoint:
+          loop = False
+          for x in visited:
+            if x[0] not in connectedPoint or x[1] not in connectedPoint:
+              loop = True
+        if loop == False:
+          break
+        if n[0] in connectedPoint and n[1] not in connectedPoint:
+          connectedPoint.append(n[1])
+          connectedTree.append(n)
+          break
+        elif n[1] in connectedPoint and n[0] not in connectedPoint:
+          connectedPoint.append(n[0])
+          connectedTree.append(n)
+          break
+        
+  return connectedTree
 
 
 
 
    
+
+
+
+
+
+
 
 
 
