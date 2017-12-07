@@ -66,10 +66,87 @@ def edge_get(graph, node='A', visited=[], minimum = 999999999):
 
 
 
+def min_kruskal(graph, node='A', visited=[], minimum = 999999999):
+  visited = edge_get(graph, node, visited, minimum)
+  connectedPoint =[]
+  connectedTree = []
+  connectedTreePoint = []
+  nonConnectedTree = []
 
+  connectedPoint.append(visited[0][0])
+  connectedPoint.append(visited[0][1])
+  connectedTreePoint.append(visited[0][0])
+  connectedTreePoint.append(visited[0][1])
+  connectedTree.append(visited[0])
+
+  for n in visited:
+    for c in nonConnectedTree:
+      if c[0] in connectedTreePoint or c[1] in connectedTreePoint:
+        connectedTree.append(c)
+        if c[0] not in connectedTreePoint:
+          connectedTreePoint.append(c[0])
+        if c[1] not in connectedTreePoint:
+          connectedTreePoint.append(c[1])
+        nonConnectedtree.remove(c)
+
+    if n[0] not in connectedPoint or n[1] not in connectedPoint:
+      if n[0] in connectedTreePoint:
+        connectedTree.append(n)
+        connectedPoint.append(n[1])
+        connectedTreePoint.append(n[1])
+      elif n[1] in connectedTreePoint and n[0] not in connectedTreePoint:
+        connectedTree.append(n)
+        connectedTreePoint.append(n[0])
+        if n[0] not in connectedPoint:
+          connectedPoint.append(n[0])
+      else:
+        nonConnectedTree.append(n)
+        if n[0] not in connectedPoint:
+          connectedPoint.append(n[0]) 
+        if n[1] not in connectedPoint:
+          connectedPoint.append(n[1])
+  
+  loop = True
+  while loop:
+    for n in visited:
+      for c in nonConnectedTree:
+        if c[0] in connectedTreePoint or c[1] in connectedTreePoint:
+          connectedTree.append(c)
+          if c[0] not in connectedTreePoint:
+            connectedTreePoint.append(c[0])
+          if c[1] not in connectedTreePoint:
+            connectedTreePoint.append(c[1])
+          nonConnectedTree.remove(c)
+      
+      if n[0] in connectedTreePoint and n[1] not in connectedTreePoint:
+        connectedTree.append(n)
+        connectedTreePoint.append(n[1])
+      if n[1] in connectedTreePoint and n[0] not in connectedTreePoint:
+        connectedTree.append(n)
+        connectedTreePoint.append(n[0])
+      loop = False
+      for p in connectedPoint:
+        if p not in connectedTreePoint:
+          loop = True
+       
+    
+    
+  return connectedTree   
+       
+    
 
 
 
 
 
    
+
+
+
+
+
+
+
+
+
+
