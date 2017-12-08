@@ -9,56 +9,27 @@ def is_proper(graph, color):
 
 def three_color(graph):
   allTrees = []
-  currentTree = []
+  currentTree = {}
   setTree = []
   for n in graph:
-    currentTree.append({n : 1})
+    currentTree.update({n : 1})
 
-  for s in currentTree:
-    r = s.copy()
-    setTree.append(r)
-  allTrees.append(setTree);
+  r = currentTree.copy()
+  allTrees.append(r);
   breakBool = False
   loop = True
   for num in range(0, len(graph) * len(graph) * len(graph)):
-    breakBool = False
     setTree =[]
     for n in currentTree:
-      if breakBool == True:
+      if currentTree[n] <3:
+        currentTree[n] += 1
+        r = currentTree.copy()
+        allTrees.append(r);
         break
-      for x in n:
-        if n[x] <3:
-          n[x] += 1
-          for s in currentTree:
-            r = s.copy()
-            setTree.append(r)
-          allTrees.append(setTree);
-          breakBool = True
-          break
-        else:
-          n[x] = 1
+      else:
+        currentTree[n] = 1
   
   return allTrees
-
-
-#def three_color(graph):
-#  main = []
-#  for key in graph:
-#    main.append(key)
-#  temp = []
-#  output = []
-#  for ke in main:
-#    output = [] 
-#    for i in range(1, 4):
-#      if temp == []:
-#        output.append({ke:i})
-#      else:
-#        for item in temp:
-#          dict = {ke : i}
-#          dict.update(item)
-#          output.append(dict)
-#    temp = output
-#  return output
 
 
 
