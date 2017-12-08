@@ -64,12 +64,14 @@ def min_kruskal(graph, node='A', visited=[], minimum = 999999999):
   connectedTree = []
   connectedTreePoint = []
   nonConnectedTree = []
+  orderedTree = []
 
   connectedPoint.append(visited[0][0])
   connectedPoint.append(visited[0][1])
   connectedTreePoint.append(visited[0][0])
   connectedTreePoint.append(visited[0][1])
   connectedTree.append(visited[0])
+  orderedTree.append(visited[0])
 
   for n in visited:
     for c in nonConnectedTree:
@@ -86,17 +88,23 @@ def min_kruskal(graph, node='A', visited=[], minimum = 999999999):
         connectedTree.append(n)
         connectedPoint.append(n[1])
         connectedTreePoint.append(n[1])
+        if n not in orderedTree:
+          orderedTree.append(n)
       elif n[1] in connectedTreePoint and n[0] not in connectedTreePoint:
         connectedTree.append(n)
         connectedTreePoint.append(n[0])
         if n[0] not in connectedPoint:
           connectedPoint.append(n[0])
+        if n not in orderedTree:
+          orderedTree.append(n)
       else:
         nonConnectedTree.append(n)
         if n[0] not in connectedPoint:
           connectedPoint.append(n[0]) 
         if n[1] not in connectedPoint:
           connectedPoint.append(n[1])
+        if n not in orderedTree:
+          orderedTree.append(n)
   
   loop = True
   while loop:
@@ -104,6 +112,8 @@ def min_kruskal(graph, node='A', visited=[], minimum = 999999999):
       for c in nonConnectedTree:
         if c[0] in connectedTreePoint or c[1] in connectedTreePoint:
           connectedTree.append(c)
+          if n not in orderedTree:
+            orderedTree.append(n)
           if c[0] not in connectedTreePoint:
             connectedTreePoint.append(c[0])
           if c[1] not in connectedTreePoint:
@@ -113,15 +123,25 @@ def min_kruskal(graph, node='A', visited=[], minimum = 999999999):
       if n[0] in connectedTreePoint and n[1] not in connectedTreePoint:
         connectedTree.append(n)
         connectedTreePoint.append(n[1])
+        if n not in orderedTree:
+          orderedTree.append(n)
       if n[1] in connectedTreePoint and n[0] not in connectedTreePoint:
         connectedTree.append(n)
         connectedTreePoint.append(n[0])
+        if n not in orderedTree:
+          orderedTree.append(n)
       loop = False
       for p in connectedPoint:
         if p not in connectedTreePoint:
           loop = True
-      
-  return connectedTree   
+
+  outputTree =[]
+  for n in orderedTree:
+    for c in connectedTree:
+      if n == c:
+        outputTree.append(n)
+
+  return outputTree 
        
     
 

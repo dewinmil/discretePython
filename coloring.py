@@ -63,8 +63,6 @@ def is_proper_edge(graph):
 
 def smallest(graph, vert, color, num = 1):
   numbers = [];
-  print(color)
-  print(vert)
   if vert in color:
     numbers.append(color[n])
   for n in graph[vert]:
