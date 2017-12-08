@@ -1,27 +1,15 @@
-graph = {
-    'A' : ['B','C'],
-    'B' : [],
-    'C' : ['D','E'],
-    'D' : [ 'F'],
-    'E' : ['G'],
-    'F' : ['H'],
-    'G' : [],
-    'H' : [],
-}
-
-dfsGraph = {'A' : ['B', 'C'], 'B' : ['D'], 'C' : [], 'D' : [],}
-bfsGraph = {'A' : ['B', 'C', 'D'], 'B' : [], 'C' : [], 'D' : [],}
-
-edgeGraph = {'A' : [['B', 10], ['D', 5]], 'B' : [['A', 10], ['C', 5]], 'C' : [['B', 5], ['D', 15]], 'D' : [['C', 15], ['A', 5]]}
-
-def DFS(graph, node='A', visited=[]):
+def dfs(graph, node='A', visited=[]):
   visited.append(node)
   for n in graph[node]:
     dfs(graph, n, visited)
+
   return visited
 
 
-def BFS(graph, node='A', visited=[], called=[]):
+def DFS(graph):
+  return dfs(graph, "A", [])
+  
+def bfs(graph, node='A', visited=[], called=[]):
   if node not in visited:
     visited.append(node)
   if node not in called:
@@ -33,9 +21,11 @@ def BFS(graph, node='A', visited=[], called=[]):
       bfs(graph, x, visited, called)
   return visited
 
+def BFS(graph):
+  return bfs(graph, "A", [], [])
 
 
-def edge_get(graph, node='A', visited=[], minimum = 999999999):
+def edge(graph, node='A', visited=[], minimum = 999999999):
   oldMin = -1;
   newMin = 999999999;
   prevMin = minimum
@@ -64,10 +54,12 @@ def edge_get(graph, node='A', visited=[], minimum = 999999999):
   visited = []
   return returnval
 
+def edge_get(graph):
+  return edge(graph, "A", [], 99999999999)
 
 
 def min_kruskal(graph, node='A', visited=[], minimum = 999999999):
-  visited = edge_get(graph, node, visited, minimum)
+  visited = edge_get(graph)
   connectedPoint =[]
   connectedTree = []
   connectedTreePoint = []
@@ -134,7 +126,7 @@ def min_kruskal(graph, node='A', visited=[], minimum = 999999999):
     
 
 def min_prim(graph, node='A', visited=[], minimum = 999999999):
-  visited = edge_get(graph, node, visited, minimum)
+  visited = edge_get(graph)
   connectedPoint =[]
   connectedTree = []
   
